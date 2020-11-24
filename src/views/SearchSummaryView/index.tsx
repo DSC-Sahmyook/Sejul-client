@@ -21,6 +21,7 @@ const SearchView_2 = (props: UserSearchProps) => {
     const [hashTags, setHashTags] = useState<IHashtag[]>([]);
 
     const fn = async () => {
+
         const response = await API.Search.fetchSummaries(keyword);
         setItems(response);
     };
@@ -57,7 +58,10 @@ const SearchView_2 = (props: UserSearchProps) => {
                 alert("검색어를 입력해주세요");
                 return;
             }
-            else fn();
+            else {
+                fn();
+            }
+        
         }
     }
 
@@ -112,6 +116,7 @@ const SearchView_2 = (props: UserSearchProps) => {
                             );
                         })}
                 </div>
+                <div className="main-footer">Sejul</div>
             </div>
         </>)
 }

@@ -3,8 +3,10 @@
 
 .__container__{
     width: 100%;
+    height: 100%;
     margin-top: 60px;
     background-size: cover;
+
     .__subnavbar-container{
         margin-left: 35px;
     }
@@ -42,14 +44,19 @@
 }
 
 .search-container{
+    overflow: auto;
     background-color: #FAFAFA;
     width: 100%;
-    margin-top: 90px;
+    height: 100%;
+    margin-top: 80px;   
     padding-top: 30px;
-    overflow: auto;
+    display: inline-table;
     .search-card-wrap{
     width: 1095px;
+    height: 1009px;
     margin:0 250px;
+
+    .search-card{
     .__Card-main-container{
         width: 334px;
         height: 315px;
@@ -82,7 +89,7 @@
         
     }
 
-.search-card{
+
     width: 334px;
     height: 315px;  
     margin-bottom: 20px;
@@ -152,7 +159,6 @@
 }
 
 }
-
+}
 }
 
-}

@@ -1,11 +1,11 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
-.__topic__container__   {
+.__topic__container   {
     width: 100%;
-    justify-content: stretch;
-    align-items: stretch;
-    
+    height: 100%;
+
+
 
     .search-bar-wrap{   
         height: $navbar-height;
@@ -44,6 +44,7 @@
     overflow: auto;
     background-color: #FAFAFA;
     width: 100%;
+    height: 100%;
     margin-top: 80px;
     padding-top: 30px;
     justify-content: stretch;
@@ -51,7 +52,7 @@
 
     .search-card-wrap{
     width: 1095px;
-    overflow: auto;
+    height: 1009px;
     margin:0 250px;
     .__Card-main-container{
         width: 100%;
@@ -90,6 +91,9 @@
 
 }
 
+}
+.main-footer{
+    margin-top : 0;
 }
 
 }
