@@ -5,6 +5,7 @@ import * as API from '../../api'
 import './scss/SearchSummaryView.scss'
 import moment from 'moment'
 import 'moment/locale/ko';
+import {Link} from 'react-router-dom';
 import { setTextRange } from 'typescript';
 import { useParams } from 'react-router';
 
@@ -87,8 +88,9 @@ const SearchView_2 = (props: UserSearchProps) => {
                     {
                         items.map((item, idx) => {
                             return (
-
+                                <Link className ="__user-link" to={`/summary/${item._id}`}>
                                 <div key={idx} className="search-card">
+                                    
                                     <Card>
                                         <div className="user-information-wrap">
                                             <div className="user-img-wrap"> <img className="use-img" src="https://www.travie.com/news/photo/201807/20428_715_5954.jpg" /></div>
@@ -113,6 +115,7 @@ const SearchView_2 = (props: UserSearchProps) => {
                                         </div>
                                     </Card>
                                 </div>
+                                </Link>
                             );
                         })}
                 </div>

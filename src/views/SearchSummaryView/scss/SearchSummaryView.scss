@@ -57,6 +57,7 @@
     margin:0 250px;
 
     .search-card{
+        
     .__Card-main-container{
         width: 334px;
         height: 315px;
@@ -64,6 +65,8 @@
         flex-direction: column;
         align-items: stretch;
         justify-content: stretch;
+
+
     }
     .user-information-wrap{
         margin-left: 30px;
@@ -95,10 +98,7 @@
     margin-bottom: 20px;
     background-color: $color-white;
     display: inline-block;
-
-    &:not(:last-child){
-        margin-right : 31px;
-    }
+    margin-right: 31px;
 
     .news-title{
         margin-left: 30px;
