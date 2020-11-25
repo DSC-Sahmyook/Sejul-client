@@ -81,18 +81,20 @@ ReactDOM.render(
           <Route exact path="/" component={MainView}></Route>
           <Route path="/signin" component={NewSignInView} />
           <Route path="/signup" component={NewSignUpView} />
+          
           <Route path="/search" >
 
             <div className="__container__" >
               <SubNavbar className="__search-navbar" links={
                 [
+                  { to: '/search', text:''},
                   { to: '/search/topic/', text: '기사 검색' },
                   { to: '/search/summary/', text: '글 검색' }
                 ]
               } />
               <Switch>
-                <Route exact path="/search">
-                  <Redirect to="/search/topic" />
+                  <Route exact path="/search" component={SearchView_2}>
+                 
                 </Route>
                 <Route path="/search/topic" component={SearchView} />
                 <Route path="/search/summary" component={SearchView_2} />

@@ -24,30 +24,9 @@ const SearchView_2 = (props: UserSearchProps) => {
 
     const fn = async () => {
 
-        const response = await API.Search.fetchSummaries(keyword);
-        setItems(response);
+        const response = await API.Search.fetchSummaries(keyword) as any;
+        setItems(response.data);
     };
-    // const searchpost = async () => {
-    //     const response = await API.Search.fetchSummaries('');
-    //     setItems(response);
-    // }
-    // const getHashTags = async () => {
-    //     try {
-    //         const result = await API.Analytics.fetchHottestHashtag();
-    //         setHashTags(result);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
-    // useEffect(() => {
-    //     if (keyword === '') {
-    //         searchpost();
-    //     } else {
-    //         fn();
-    //     }
-    //     getHashTags();
-
-    // }, [keyword]);
 
 
     useEffect(() => {
@@ -83,13 +62,12 @@ const SearchView_2 = (props: UserSearchProps) => {
                 </div>
             </div>
             <div className="search-container">
-
                 <div className="search-card-wrap">
 
                     {
                         items.map((item, idx) => {
                             return (
-                                <Link className ="__user-link" to={`/summary/${item._id}`}>
+                                <Link className ="__user-link"   to={`/summary/${item._id}`}>
                                 <div key={idx} className="search-card">
                                     
                                     <Card>

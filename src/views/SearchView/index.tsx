@@ -8,11 +8,12 @@ import { FaNode, FaRuler } from 'react-icons/fa';
 
 const SearchView = () => {
     const [posts, setPosts] = useState<any[]>([]);
+    const [items, setItems ] = useState<any[]>([]);
     const [keyword,setKeyword] = useState('');
 
     const fn = async () => {
-        const rul = await API.Search.fetchArticles(keyword);
-        setPosts(rul);
+        const rul = await API.Search.fetchArticles(keyword) as any;
+        setItems(rul.data);
     };
 
     useEffect(() => {
