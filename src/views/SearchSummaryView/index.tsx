@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ISummary, IHashtag } from '../../api/interfaces';
-import { Card } from '../../components';
+import { ISummary, IHashtag, IUser} from '../../api/interfaces';
+import { Card ,CircularImage} from '../../components';
 import * as API from '../../api'
 import './scss/SearchSummaryView.scss'
 import moment from 'moment'
@@ -18,6 +18,7 @@ interface UserSearchProps {
 const SearchView_2 = (props: UserSearchProps) => {
 
     const [items, setItems] = useState<ISummary[]>([]);
+    const [img , setImg] = useState<IUser[]>([]);
     const [keyword, setKeyword] = useState("");
     const [hashTags, setHashTags] = useState<IHashtag[]>([]);
 
@@ -93,7 +94,7 @@ const SearchView_2 = (props: UserSearchProps) => {
                                     
                                     <Card>
                                         <div className="user-information-wrap">
-                                            <div className="user-img-wrap"> <img className="use-img" src="https://www.travie.com/news/photo/201807/20428_715_5954.jpg" /></div>
+                                       <div className="user-img-wrap"><CircularImage className="main-slider-author-profile" url={item.user.profile}/></div>
                                             <p className="user-name">{item.user.username} </p>
                                         </div>
 
