@@ -9,18 +9,17 @@
     justify-content: stretch;
     align-items: stretch;
     flex-direction: column;
-    .search-bar-contianer{
-        width:100%;
-        justify-content: stretch;
-        align-items: stretch;
+
         .search-bar-wrap{
-            margin-top: 60px;
+            margin-top: 100px;
             .saerch-input-bar{
                 width: 100%;
                 display: flex;
-                align-items: center;
+                align-items: stretch;
+                justify-content: stretch;
+                margin-left: 250px;
                 .search-input{
-                    width: 80%;
+                    width: 60%;
                     border-top: none;
                     border-left: none;
                     border-right: none;
@@ -30,10 +29,78 @@
                 .search-button{
                     overflow: hidden;
                     border-radius: 50%;
+                    outline: none;
+                    border-style: none;
+                    width: 60px;
+                    height: 60px;
+                    padding: 0;
+
+                    .search-but-img{
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
+            .__search-navbar_wrap{
+                width: 100%;
 
+                .__search-navbar{
+                    margin-top: 30px;
+                    margin-left: 15px;
+
+                }
+            }
         }
-    }
+        .search-content-container{
+            width: 100%;
+            height: 100%;
 
+            .search-content-container-wrap{
+
+                height: 100%;
+                background-color: #b6b6b633;
+                overflow-y: scroll;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                padding-top: 30px;
+
+                .search-card{
+
+                    width: 1280px;
+                    margin-left: 40px;
+                    margin: 0 auto;
+
+                    .__Card-main-container{
+                        margin-top: 30px;
+                        height: 120px;
+                        width:100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .content-wrap{
+                            width: 100%;
+                            margin : 20px;
+                            
+                        .news-title{
+                            font-size: $font-header;
+                            width: 100%;
+                        }
+                        .news-content{
+                            margin-top: 8px;
+                            width: 100%;
+                            font-size: $font-regular;
+                        }
+                        .news-time{
+                            margin-top: 8px;
+                            font-size: $font-smallest;
+                            width: 100%;
+                        }
+                    }
+                    }
+                }
+            }
+        }
 }

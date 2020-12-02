@@ -1,11 +1,11 @@
-import React, { useEffect, useState, Component } from 'react'
-import * as API from '../../api'
-import { ISummary  } from '../../api/interfaces'
-import { Search } from '../../api'
-import './scss/SearchView.scss'
-import { Card, SubNavbar, Pagination} from '../../components'
-import moment from 'moment'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState, Component } from 'react';
+import * as API from '../../api';
+import { ISummary  } from '../../api/interfaces';
+import { Search } from '../../api';
+import { Card, SubNavbar, Pagination} from '../../components';
+import moment from 'moment';
+import {Link} from 'react-router-dom';
+import './scss/SearchView.scss';
 
 const SearchView = () => {
     
@@ -45,8 +45,9 @@ const SearchView = () => {
                         placeholder="검색어를 입력하시오" 
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}/> 
-                        <button className = "search-button" onClick={fn}><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx7P24Dz_WCoX7rc_j50tuDaQQ2W78KmZVPQ&usqp=CAU"></img></button>
+                        <button className = "search-button" onClick={fn}><img className= "search-but-img" src="https://i.pinimg.com/originals/e7/d4/50/e7d450d8c31ae10aa663d082fdbb3db9.png"></img></button>
                     </div>
+                <div className = "__search-navbar_wrap">
                     <SubNavbar className="__search-navbar" links={
                         [
                         { to: '/search', text:''},
@@ -56,6 +57,7 @@ const SearchView = () => {
                     } 
                         />
                 </div>
+                </div>
             </div>
             <div className = "search-content-container">
                 <div className = "search-content-container-wrap">
@@ -63,15 +65,17 @@ const SearchView = () => {
                         post.map((item) => {
                             return (
                                 <Link className ="__user-link"   to={`/summary/${item._id}`}>
-                                    
+                                
                                     <div className="search-card" >
                                         <Card>
+                                            <div className = "content-wrap">
                                             <p className="news-title">{item.title}</p>
                                             <p className="news-content">{item.description}</p>
                                             <p className="news-time">{moment(item.pubDate).format('yyyy dddd, hh:mm')}</p>
+                                            </div>
                                         </Card>
                                     </div>
-                                    
+                                
                                </Link>
                             )
                         })
