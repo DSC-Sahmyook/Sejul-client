@@ -10,8 +10,9 @@ import './scss/SearchView.scss';
 const SearchView = () => {
     
     const [ post, setPost ] = useState<any[]>([]);
-    const [ items, setItems  ] = useState<any[]>([]);
     const [ keyword,setKeyword] = useState('');
+    const [page, setPage] = useState(1);
+	const [total, setTotal] = useState(1);
     
 
     const fn = async() => {
@@ -38,7 +39,6 @@ const SearchView = () => {
     return(
         <>
         <div className = "search-container">
-            <div className = "search-bar-container">
                 <div className = "search-bar-wrap">
                     <div className = "saerch-input-bar">
                         <input className = "search-input"  
@@ -56,7 +56,6 @@ const SearchView = () => {
                         ]
                     } 
                         />
-                </div>
                 </div>
             </div>
             <div className = "search-content-container">
@@ -83,7 +82,7 @@ const SearchView = () => {
                 </div>
             </div>
             <div className = "search-pagination-wrap">
-                <Pagination page={5}  total = {5} itemsPerPage={10}/>
+                <Pagination page={page}  total = {total} itemsPerPage={6}/>
             </div>
         </div>
         </>

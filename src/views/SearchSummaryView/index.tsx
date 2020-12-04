@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { ISummary, IHashtag, IUser} from '../../api/interfaces';
-import { Card ,CircularImage} from '../../components';
+import React, { useEffect,useState } from 'react'
 import * as API from '../../api'
+import { IHashtag,ISummary } from '../../api/interfaces';
+import { Card, SubNavbar, Pagination, CircularImage} from '../../components';
 import './scss/SearchSummaryView.scss'
 import moment from 'moment'
 import 'moment/locale/ko';
 import {Link} from 'react-router-dom';
-import { setTextRange } from 'typescript';
-import { useParams } from 'react-router';
-
-interface UserSearchProps {
-    isSearched: boolean,
-    onSearch: Function,
-}
 
 
-const SearchView_2 = (props: UserSearchProps) => {
-
-    const [items, setItems] = useState<ISummary[]>([]);
-    const [img , setImg] = useState<IUser[]>([]);
-    const [keyword, setKeyword] = useState("");
+const SearchSummaryView = () => {
+    
+    const [ post, setPost ] = useState<ISummary[]>([]);
+    const [ items, setItems  ] = useState<any[]>([]);
+    const [ keyword,setKeyword] = useState('');
     const [hashTags, setHashTags] = useState<IHashtag[]>([]);
-
-    const fn = async () => {
-
-        const response = await API.Search.fetchSummaries(keyword) as any;
-        setItems(response.data);
-    };
+	const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(1);
+    
+    const fn = async() => {
+        const responce = await API.Search.fetchSummaries(keyword) as any;
+        setPost(responce.data);
+    }
+    
 
 
     useEffect(() => {
@@ -35,56 +30,65 @@ const SearchView_2 = (props: UserSearchProps) => {
 
     const Search = {
         search: () => {
-            if (keyword === "") {
+            if ( keyword === "" ) {
                 alert("검색어를 입력해주세요");
                 return;
             }
             else {
                 fn();
             }
-        
         }
     }
 
-
-    return (
+    return(
         <>
-            <div className="search-bar-wrap">
-                <div className="search-bar">
-                    <input
-                        type="input"
-                        placeholder="검색어를 입력 하세요."
-                        className="search-bar-input"
+        <div className = "summary-search-container">
+                <div className = "search-bar-wrap">
+                    <div className = "saerch-input-bar">
+                        <input className = "search-input"  
+                        placeholder="검색어를 입력하시오" 
                         value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)} />
-                    <button onClick={fn} className="search-button-img-wrap">
-                        <img className="button-img" src="data:image/png;base64,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" /></button>
+                        onChange={(e) => setKeyword(e.target.value)}/> 
+                        <button className = "search-button" onClick={fn}><img className= "search-but-img" src="https://i.pinimg.com/originals/e7/d4/50/e7d450d8c31ae10aa663d082fdbb3db9.png"></img></button>
+                    </div>
+                <div className = "__search-navbar_wrap">
+                    <SubNavbar className="__search-navbar" links={
+                        [
+                        { to: '/search', text:''},
+                        { to: '/search/topic/', text: '기사 검색' },
+                        { to: '/search/summary/', text: '글 검색' }
+                        ]
+                    } 
+                        />
                 </div>
             </div>
-            <div className="search-container">
-                <div className="search-card-wrap">
-
+            <div className = "search-content-container">
+                <div className = "search-content-container-wrap">
                     {
-                        items.map((item, idx) => {
+                        post.map((item:ISummary) => {
                             return (
-                                <Link className ="__user-link"   to={`/summary/${item._id}`}>
-                                <div key={idx} className="search-card">
-                                    
+                                
+                                <div className="search-card">
+                                    <Link className ="__user-link"   to={`/summary/${item._id}`}>
                                     <Card>
                                         <div className="user-information-wrap">
-                                       <div className="user-img-wrap"><CircularImage className="main-slider-author-profile" url={item.user.profile}/></div>
+                                       <div className="user-img-wrap">
+                                           <CircularImage className="main-slider-author-profile" url={item.user.profile}/></div>
                                             <p className="user-name">{item.user.username} </p>
                                         </div>
 
-                                        <div key={idx}>
                                             <p className="news-title">{item.article.title}</p>
 
-                                        </div>
                                         <div className="search-Hashtag">
                                             <div className="serch-Hashtag-text-wrap">
-                                                {hashTags.map((hashtag) => (
-                                                    <p className="main-slider-hashtags-text">#{hashtag.text}</p>
-                                                ))}
+                                            {item.hashtags.length > 0 ? (
+                                                
+                                                item.hashtags.map(( hashtag ) => (
+                                                    <p  className="hashtags-text">#{hashtag.text}</p>
+                                                ))):(
+                                                    <p className="hashtags-case-2">등록된 해시태그가 없습니다</p>
+                                                )
+                                                }
                                             </div>
 
                                         </div>
@@ -92,15 +96,23 @@ const SearchView_2 = (props: UserSearchProps) => {
                                             <p className="new-write-time">{item.timestamp}소요</p>
                                             <p className="news-create-time">{moment(item.createdAt).fromNow()}</p>
                                         </div>
-                                    </Card>
-                                </div>
+                                    </Card> 
                                 </Link>
+                                </div>
+                               
                             );
-                        })}
+                        })
+                        }
                 </div>
-                <div className="main-footer">Sejul</div>
             </div>
-        </>)
+            <div className = "search-pagination-wrap">
+                <Pagination page={page}  total = {total} itemsPerPage={6}/>
+            </div>
+        </div>
+        </>
+    )
 }
 
-export default SearchView_2;
+export default SearchSummaryView;
+
+

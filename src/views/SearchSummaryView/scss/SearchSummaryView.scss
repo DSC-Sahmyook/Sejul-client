@@ -1,164 +1,182 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
-.__container__{
+
+.summary-search-container{
     width: 100%;
     height: 100%;
-    margin-top: 60px;
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
 
-    .__subnavbar-container{
-        margin-left: 35px;
-    }
-    .search-bar-wrap{
-        height: $navbar-height;
-        margin-top: -120px;
+        .search-bar-wrap{
+            margin: 90px auto 0;
+            width: 1280px;
 
-    .search-bar{
-        background-color: $color-white;
-        margin: 0 250px;
-        .search-button-img-wrap{
-            border-radius: 50%;
-            border:0;
-            padding: 0;
-            width: $spacing-narrow*2;   
-            height: $spacing-wide; 
-            outline: 0; 
-            overflow: hidden;
-            cursor:pointer;
-            margin-left: -45px;
-            .button-img{
+            .saerch-input-bar{
+                display: flex;
+                align-items: stretch;
+                justify-content: stretch;
+                .search-input{
+                    width: 80%;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    font-size: $font-header;
+                    outline: 0;
+                }
+                .search-button{
+                    overflow: hidden;
+                    border-radius: 50%;
+                    outline: none;
+                    border-style: none;
+                    width: 60px;
+                    height: 60px;
+                    padding: 0;
+
+                    .search-but-img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .__search-navbar_wrap{
                 width: 100%;
-                height: 100%
+
+                .__search-navbar{
+                    margin:0 ;
+
+
+                }
             }
         }
-        .search-bar-input{
-            font-size: $font-header;
-            border-top: none;
-            border-right: none; 
-            border-left: none; 
-            width: 1080px;
-            outline: 0; 
-        }
-    }
-}
-
-.search-container{
-    overflow: auto;
-    background-color: #FAFAFA;
-    width: 100%;
-    height: 100%;
-    margin-top: 80px;   
-    padding-top: 30px;
-    display: inline-table;
-    .search-card-wrap{
-    width: 1095px;
-    height: 1009px;
-    margin:0 250px;
-
-    .search-card{
-        
-    .__Card-main-container{
-        width: 334px;
-        height: 315px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: stretch;
-
-
-    }
-    .user-information-wrap{
-        margin-left: 30px;
-        margin-top: 15px;
-        display: flex;
-        align-items: center;
-        .user-img-wrap{
-            overflow:hidden;
-            border-radius: 50%;
-            width: 25px;   
-            height: 25px; 
-            display: inline-block;
-            .use-img{
-                width:100%;
-                height: 100%;
-            }
-        }
-        .user-name{
-            width: 200px;
-            margin-left: 10px;
-            color: black;
-        }
-        
-    }
-
-
-    width: 334px;
-    height: 315px;  
-    margin-bottom: 20px;
-    background-color: $color-white;
-    display: inline-block;
-    margin-right: 31px;
-
-    .news-title{
-        margin-left: 30px;
-        margin-right: 20px;
-        margin-top : 20px;
-        font-size: $font-header;
-    }
-    .news-content{
-        margin-left: 30px;
-        margin-top : 10px;
-        font-size: $font-regular;
-
-    }
-    .new-time-wrap{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-self: center;
-
-    .new-write-time{
-        color: #9F9F9F;
-        width: 70px;
-        margin-top: 18px;
-        margin-left: 30px;
-        font-size: 10px;
-    }
-    .news-create-time{
-        color: #9F9F9F;
-        margin-left: 150px;
-        margin-top : 18px;
-        font-size: $font-smallest;
-    }
-}
-    .search-Hashtag{
-        margin-left: 30px;
-        margin-right: 20px;
-        margin-top: 150px;
-        width: 284px; 
-        height: 50x; 
-        
-        .serch-Hashtag-text-wrap{
+        .search-content-container{
             width: 100%;
             height: 100%;
-            overflow:hidden;    
-            display: inline-flex;
-            align-items: stretch;
-            justify-content: stretch;
-        .main-slider-hashtags-text{
-            color: $color-primary-blue;
-            white-space: nowrap ;
-            
-    &:not(:last-child){
-        margin-right : 5px;
-    }
+            overflow-y: auto;
+            background-color: #b6b6b633;
+            padding: 0;
+
+            .search-content-container-wrap{
+
+                width: 1280px;
+                padding: 0 0 30px 250px;
+                display: flex;
+                flex-flow: wrap;
+
+
+
+                .search-card{
+
+                    width: 320px;
+                    height: 320px;
+                    margin:30px;
+
+                    .__Card-main-container{
+                        height: 100%;
+                        width:100%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+
+                        .user-information-wrap{
+                            margin-left: 30px;
+                            margin-top: 15px;
+                            width:100%;
+                            display: flex;
+                            align-items: center;
+                            .user-img-wrap{
+                                overflow:hidden;
+                                border-radius: 50%;
+                                width: 25px;   
+                                height: 25px; 
+                                display: inline-block;
+                                .use-img{
+                                    width:100%;
+                                    height: 100%;
+                                }
+                            }
+                            .user-name{
+                                width: 200px;
+                                margin-left: 10px;
+                                color: black;
+                            }
+                            
+                        }
+
+                        .news-title{
+                            margin-left: 30px;
+                            margin-right: 20px;
+                            margin-top : 20px;
+                            font-size: $font-header;
+                        }
+                        .news-content{
+                            margin-left: 30px;
+                            margin-top : 10px;
+                            font-size: $font-regular;
+                    
+                        }
+                        .new-time-wrap{
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-self: center;
+                    
+                        .new-write-time{
+                            color: #9F9F9F;
+                            width: 70px;
+                            margin-top: 18px;
+                            margin-left: 30px;
+                            font-size: 10px;
+                        }
+                        .news-create-time{
+                            color: #9F9F9F;
+                            margin-left: 150px;
+                            margin-top : 18px;
+                            font-size: $font-smallest;
+                        }
+                    }
+                        .search-Hashtag{
+                            margin-left: 30px;
+                            margin-right: 20px;
+                            margin-top: 150px;
+                            width: 284px; 
+                            height: 50x; 
+                            
+                            .serch-Hashtag-text-wrap{
+                                width: 100%;
+                                height: 100%;
+                                overflow:hidden;    
+                                display: inline-flex;
+                                align-items: stretch;
+                                justify-content: stretch;
+                                
+                                .hashtags-case-2{
+                                    color: $color-primary-blue;
+                                }
+                                
+                                .hashtags-text{
+                                color: $color-primary-blue;
+                                white-space: nowrap ;
+                                
+                        &:not(:last-child){
+                            margin-right : 5px;
+                        }
+                            }
+                            
+                        }
+                        }
+                    
+
+                }
+            }
+        }
+        .search-pagination-wrap{
+            width:100%;
+            display: flex;
+
         }
     }
-    }
 }
-
-}
-}
-}
-

@@ -20,7 +20,7 @@ import SignInView from './views/SignInView';
 import NewSignInView from './views/NewSignInView';
 import NewSignUpView from './views/NewSignUpView';
 import SearchView from './views/SearchView';
-import SearchView_2 from './views/SearchSummaryView';
+import SearchSummaryView from './views/SearchSummaryView';
 import SignUpView from './views/SignUpView';
 import SummaryDetailView from './views/SummaryDetailView';
 //userinfoview
@@ -86,7 +86,7 @@ ReactDOM.render(
               <Switch>
                 <Route exact path="/search" component={SearchView}></Route>
                 <Route path="/search/topic" component={SearchView} />
-                <Route path="/search/summary" component={SearchView_2} />
+                <Route path="/search/summary" component={SearchSummaryView} />
               </Switch>
           </Route>
 
