@@ -1,44 +1,43 @@
 import React, { useEffect,useState } from 'react'
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { useLocationSearch } from '../../lib/hooks';
 import * as API from '../../api'
-import { IHashtag,ISummary } from '../../api/interfaces';
+import { ISummary,IHashtag} from '../../api/interfaces';
 import { Card, SubNavbar, Pagination, CircularImage} from '../../components';
 import './scss/SearchSummaryView.scss'
+import { FcSearch } from 'react-icons/fc';
+import {ImCancelCircle} from 'react-icons/im';
 import moment from 'moment'
 import 'moment/locale/ko';
 import {Link} from 'react-router-dom';
 
 
 const SearchSummaryView = () => {
+    const history = useHistory();
+    const matches = useRouteMatch();
+    const loc = useLocation();
+    const searches = useLocationSearch(loc.search);
     
-    const [ post, setPost ] = useState<ISummary[]>([]);
-    const [ items, setItems  ] = useState<any[]>([]);
-    const [ keyword,setKeyword] = useState('');
-    const [hashTags, setHashTags] = useState<IHashtag[]>([]);
-	const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(1);
-    
-    const fn = async() => {
-        const responce = await API.Search.fetchSummaries(keyword) as any;
-        setPost(responce.data);
-    }
-    
+    const [posts, setPosts ] = useState([] as ISummary[]);
+    const [keyword,setKeyword] = useState('');
+    const [bool,setBool] = useState(true);
 
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(1);
+    const [cnt, setCnt] = useState(6);
+
+    
+    
+    const fn = async () => {
+                const responce = await API.Search.fetchSummaries(keyword, page,cnt);
+                setPosts(responce.data);
+                setCnt(responce.cnt);
+    }
 
     useEffect(() => {
         fn();
     }, []);
 
-    const Search = {
-        search: () => {
-            if ( keyword === "" ) {
-                alert("검색어를 입력해주세요");
-                return;
-            }
-            else {
-                fn();
-            }
-        }
-    }
 
     return(
         <>
@@ -48,13 +47,15 @@ const SearchSummaryView = () => {
                         <input className = "search-input"  
                         placeholder="검색어를 입력하시오" 
                         value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}/> 
-                        <button className = "search-button" onClick={fn}><img className= "search-but-img" src="https://i.pinimg.com/originals/e7/d4/50/e7d450d8c31ae10aa663d082fdbb3db9.png"></img></button>
-                    </div>
+                        onChange={(e) => setKeyword(e.target.value)}/> {
+                            bool ? 
+                        (<button className = "search-button" onClick={()=> {fn(); setBool(false); }}><FcSearch className="search-but-img"/></button>) : 
+                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); }}><ImCancelCircle className="search-but-img"/></button>)
+                        }
+                        </div>
                 <div className = "__search-navbar_wrap">
                     <SubNavbar className="__search-navbar" links={
                         [
-                        { to: '/search', text:''},
                         { to: '/search/topic/', text: '기사 검색' },
                         { to: '/search/summary/', text: '글 검색' }
                         ]
@@ -65,10 +66,10 @@ const SearchSummaryView = () => {
             <div className = "search-content-container">
                 <div className = "search-content-container-wrap">
                     {
-                        post.map((item:ISummary) => {
+                        posts.map((item,idx) => {
                             return (
                                 
-                                <div className="search-card">
+                                <div key={idx} className="search-card">
                                     <Link className ="__user-link"   to={`/summary/${item._id}`}>
                                     <Card>
                                         <div className="user-information-wrap">

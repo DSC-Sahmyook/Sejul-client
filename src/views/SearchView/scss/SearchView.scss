@@ -19,7 +19,7 @@
                 align-items: stretch;
                 justify-content: stretch;
                 .search-input{
-                    width: 80%;
+                    width: 90%;
                     border-top: none;
                     border-left: none;
                     border-right: none;
@@ -33,7 +33,10 @@
                     border-style: none;
                     width: 60px;
                     height: 60px;
-                    padding: 0;
+                    padding: 5px;
+                    background: none;
+                    cursor: pointer;
+                    margin-left : -55px;
 
                     .search-but-img{
                         width: 100%;
@@ -61,7 +64,11 @@
                 height: 100%;
                 background-color: #b6b6b633;
                 overflow-y: scroll;
-
+                .first-content{
+                    font-size: $font-header;
+                    margin-top : 20px;
+                    text-align: center;
+                }
                 .search-card{
 
                     width: 1280px;
@@ -83,11 +90,19 @@
                         .news-title{
                             font-size: $font-header;
                             width: 100%;
+                            b{
+                                color: $color-primary-blue;
+                                font-weight: bold;
+                            }
                         }
                         .news-content{
                             margin-top: 8px;
                             width: 100%;
                             font-size: $font-regular;
+                            b{
+                                color: $color-primary-blue;
+                                font-weight: bold;
+                            }
                         }
                         .news-time{
                             margin-top: 8px;

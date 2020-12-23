@@ -1,30 +1,89 @@
 import React, { useEffect, useState, Component } from 'react';
+import { useRouteMatch, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useLocationSearch } from '../../lib/hooks';
 import * as API from '../../api';
 import { ISummary  } from '../../api/interfaces';
 import { Search } from '../../api';
 import { Card, SubNavbar, Pagination} from '../../components';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
+import { FcSearch } from 'react-icons/fc';
+import { ImCancelCircle } from 'react-icons/im'
 import './scss/SearchView.scss';
 
+export interface ISearchNews {
+    title : string;
+    description : string;
+    pubDate : string;
+    link: string | String; // 기사 네이버 링크
+    originalLink: string | String; // 언론사 링크
+}
+
+
+
+
 const SearchView = () => {
+    const [bool,setBool] = useState(true); 
+    const history = useHistory();
+
+    const [topics, setTopics] = useState([] as ISearchNews[]);
+    const [keyword,setKeyword] = useState('');
     
-    const [ post, setPost ] = useState<any[]>([]);
-    const [ keyword,setKeyword] = useState('');
+    
     const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(1);
+    const [cnt, setCnt] = useState(6);
     
+    const matches = useRouteMatch();
+    const loc = useLocation();
+    const searches = useLocationSearch(loc.search);
+    
+    const onClick = () => {
+       
+    }
 
-    const fn = async() => {
-        const responce = await API.Search.fetchArticles(keyword) as any;
-        setPost(responce.items);
+
+    const Fn = async () => {
+        if (keyword.length == 0 ) {
+            
+            alert('검색어를 입력해주세요');
+            history.push('/search/topic');
+            return;
+        } else{
+            try {
+                const responce = await API.Search.fetchArticles(keyword,page,cnt);
+                setTopics(responce.items);
+            } catch(e) {
+                console.log(e);
+            }
+        }
     }
 
     useEffect(() => {
-        fn();
+        if(searches.length<1){
+            setPage(1);
+        }
+        else {
+            const __page = searches.find(item => item.key === "page");
+            if(__page) {
+                setPage(Number(__page.value));
+                console.log(page);
+            }
+        }
+        Fn();
     }, []);
 
-    const Search = {
+    useEffect(()=> {
+        Fn();
+        setPage(1);
+
+    },[page]);
+
+        useEffect(()=> {
+            Fn();
+
+        },[page]);
+   /* const Search = {
         search: () => {
             if ( keyword === "" ) {
                 alert("검색어를 입력해주세요");
@@ -35,7 +94,7 @@ const SearchView = () => {
             }
         }
     }
-
+*/
     return(
         <>
         <div className = "search-container">
@@ -44,13 +103,16 @@ const SearchView = () => {
                         <input className = "search-input"  
                         placeholder="검색어를 입력하시오" 
                         value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}/> 
-                        <button className = "search-button" onClick={fn}><img className= "search-but-img" src="https://i.pinimg.com/originals/e7/d4/50/e7d450d8c31ae10aa663d082fdbb3db9.png"></img></button>
-                    </div>
+                        onChange={(e) => setKeyword(e.target.value)}/> {
+                            bool ? 
+                        (<button className = "search-button" onClick={()=> {Fn(); setBool(false); }}><FcSearch className="search-but-img"/></button>) : 
+                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); }}><ImCancelCircle className="search-but-img"/></button>)
+                        }
+                        </div>
                 <div className = "__search-navbar_wrap">
+                    
                     <SubNavbar className="__search-navbar" links={
-                        [
-                        { to: '/search', text:''},
+                        [   
                         { to: '/search/topic/', text: '기사 검색' },
                         { to: '/search/summary/', text: '글 검색' }
                         ]
@@ -60,16 +122,17 @@ const SearchView = () => {
             </div>
             <div className = "search-content-container">
                 <div className = "search-content-container-wrap">
-                {
-                        post.map((item) => {
+                     {topics.length === 0 ? ( <p className = "first-content">검색결과가 없습니다.</p>) : (
+                
+                        topics.map((item,idx) => {
                             return (
-                                <Link className ="__user-link"   to={`/summary/${item._id}`}>
+                                <Link className ="__user-link"   to={`/summary?title=${item.title}&link=${item.link}`}>
                                 
-                                    <div className="search-card" >
+                                    <div key={idx} className="search-card" >
                                         <Card>
                                             <div className = "content-wrap">
-                                            <p className="news-title">{item.title}</p>
-                                            <p className="news-content">{item.description}</p>
+                                            <p className="news-title" dangerouslySetInnerHTML={{ __html: item.title }}></p>
+                                            <p className="news-content" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                             <p className="news-time">{moment(item.pubDate).format('yyyy dddd, hh:mm')}</p>
                                             </div>
                                         </Card>
@@ -78,7 +141,10 @@ const SearchView = () => {
                                </Link>
                             )
                         })
-                    }
+                    )
+                }
+
+
                 </div>
             </div>
             <div className = "search-pagination-wrap">

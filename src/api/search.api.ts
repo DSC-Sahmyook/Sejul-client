@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { title } from 'process';
 import { ISummary } from './interfaces';
 import { getUrl } from './tools/host';
 
@@ -41,13 +42,14 @@ export const fetchArticles = async (search: string, page: Number = 1, cnt: Numbe
 	return response.data;
 };
 
+
 /**
  * @description 요약글 검색을 실행합니다
  * @param search 검색어 입니다. 반드시 주어져야 합니다
  * @param page 현재 페이지입니다. 1을 기본값으로 갖습니다
  * @param cnt 한번에 보여줄 갯수입니다 10을 기본값으로 갖습니다
  */
-export const fetchSummaries = async (search: string, page: Number = 1, cnt: Number = 6): Promise<ISummary[]> => {
+export const fetchSummaries = async (search: string, page: Number = 1, cnt: Number = 10) => {
 	const response = await axios({
 		method: 'get',
 		url: getUrl('api/search/summary'),

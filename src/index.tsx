@@ -82,14 +82,11 @@ ReactDOM.render(
           <Route path="/signin" component={NewSignInView} />
           <Route path="/signup" component={NewSignUpView} />
           
-          <Route path="/search" >
-              <Switch>
-                <Route exact path="/search" component={SearchView}></Route>
-                <Route path="/search/topic" component={SearchView} />
-                <Route path="/search/summary" component={SearchSummaryView} />
-              </Switch>
+          <Route exact path="/search">
+            <Redirect to="/search/topic"/>
           </Route>
-
+          <Route path="/search/topic" component={SearchView}/>
+          <Route path="/search/summary" component={SearchSummaryView}/>
           {/* <Route path="/user/:user_name/summary" component={UserInfoView} /> */}
           <Route path="/user/:username">
             <div className="__user-info-container">

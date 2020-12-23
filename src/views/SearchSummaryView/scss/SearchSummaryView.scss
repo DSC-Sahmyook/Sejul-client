@@ -19,7 +19,7 @@
                 align-items: stretch;
                 justify-content: stretch;
                 .search-input{
-                    width: 80%;
+                    width: 90%;
                     border-top: none;
                     border-left: none;
                     border-right: none;
@@ -33,7 +33,10 @@
                     border-style: none;
                     width: 60px;
                     height: 60px;
-                    padding: 0;
+                    padding: 5px;
+                    background: none;
+                    cursor: pointer;
+                    margin-left : -55px;
 
                     .search-but-img{
                         width: 100%;
