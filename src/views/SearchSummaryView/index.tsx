@@ -50,7 +50,7 @@ const SearchSummaryView = () => {
                         onChange={(e) => setKeyword(e.target.value)}/> {
                             bool ? 
                         (<button className = "search-button" onClick={()=> {fn(); setBool(false); }}><FcSearch className="search-but-img"/></button>) : 
-                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); }}><ImCancelCircle className="search-but-img"/></button>)
+                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); setPosts([]);}}><ImCancelCircle className="search-but-img"/></button>)
                         }
                         </div>
                 <div className = "__search-navbar_wrap">

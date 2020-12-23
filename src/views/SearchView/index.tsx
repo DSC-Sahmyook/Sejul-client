@@ -42,23 +42,21 @@ const SearchView = () => {
     
 
     const Fn = async () => {
-         
                 const responce = await API.Search.fetchArticles(keyword,page,cnt);
                 setTopics(responce.items);
                 setTotal(responce.items.total as number);
-             
     }
 // 1. 페이지가 처음 로드
     useEffect(() => {
-        if (searches.length === undefined) {
+        if (searches.length > 1) {
 			setPage(1);
-        }
-        else{
-            const page = searches.find(item => item.key === "keyword");
-            if(page) {
-                setPage(Number(page.value));
-            }
-        }
+		}
+		else {
+			const __page = searches.find(item => item.key === "page");
+			if (__page) {
+				setPage(Number(__page.value));
+			}
+		}
     }, []);
 //2. 검색 : 처음은 첫번째 페이지에 고정
     useEffect(()=> {
@@ -89,7 +87,7 @@ const SearchView = () => {
                         onChange={(e) => setKeyword(e.target.value)}/> {
                             bool ? 
                         (<button className = "search-button" onClick={()=> {Fn(); setBool(false); }}><FcSearch className="search-but-img"/></button>) : 
-                        (<button className = "search-button" onClick={(e)=> {setKeyword(""); setBool(true); setTopics([]); }}><ImCancelCircle className="search-but-img"/></button>)
+                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); setTopics([]); }}><ImCancelCircle className="search-but-img"/></button>)
                         }
                         </div>
                 <div className = "__search-navbar_wrap">
