@@ -20,7 +20,7 @@ import SignInView from './views/SignInView';
 import NewSignInView from './views/NewSignInView';
 import NewSignUpView from './views/NewSignUpView';
 import SearchView from './views/SearchView';
-import SearchView_2 from './views/SearchSummaryView';
+import SearchSummaryView from './views/SearchSummaryView';
 import SignUpView from './views/SignUpView';
 import SummaryDetailView from './views/SummaryDetailView';
 //userinfoview
@@ -83,40 +83,13 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={MainView}></Route>
           <Route path="/signin" component={NewSignInView} />
-          <Route path="/signin_2" component={SignInView} />
-
           <Route path="/signup" component={NewSignUpView} />
+          
           <Route exact path="/search">
-            <Redirect to="/search/topic" />
+            <Redirect to="/search/topic"/>
           </Route>
-          <Route path="/search/topic" >
-            <NewSearchView mode="topic" />
-          </Route>
-          <Route path="/search/summary" >
-            <NewSearchView mode="summary" />
-          </Route>
-          <Route path="/search/hashtag" >
-            <NewSearchView mode="hashtag" />
-          </Route>
-          {/* <Route path="/search" > 
-            <div className="__container__" >
-              <SubNavbar className="__search-navbar" links={
-                [
-                  { to: '/search/topic/', text: '기사 검색' },
-                  { to: '/search/summary/', text: '글 검색' }
-                ]
-              } />
-              <Switch>
-
-                <Route exact path="/search">
-                  <Redirect to="/search/topic" />
-                </Route>
-                <Route path="/search/topic" component={SearchView} />
-                <Route path="/search/summary" component={SearchView_2} />
-              </Switch>
-            </div>
-          </Route>
-
+          <Route path="/search/topic" component={SearchView}/>
+          <Route path="/search/summary" component={SearchSummaryView}/>
           {/* <Route path="/user/:user_name/summary" component={UserInfoView} /> */}
           <Route path="/user/:username">
             <div className="__user-info-container">
