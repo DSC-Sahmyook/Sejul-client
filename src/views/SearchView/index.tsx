@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom';
 import { FcSearch } from 'react-icons/fc';
 import { ImCancelCircle } from 'react-icons/im'
 import './scss/SearchView.scss';
+import { pageview } from 'react-ga';
 
 export interface ISearchNews {
     title : string;
@@ -37,64 +38,46 @@ const SearchView = () => {
     const matches = useRouteMatch();
     const loc = useLocation();
     const searches = useLocationSearch(loc.search);
-    
-    const onClick = () => {
-       
-    }
 
+    
 
     const Fn = async () => {
-        if (keyword.length == 0 ) {
-            
+         
+                const responce = await API.Search.fetchArticles(keyword,page,cnt);
+                setTopics(responce.items);
+                setTotal(responce.items.total as number);
+             
+    }
+// 1. 페이지가 처음 로드
+    useEffect(() => {
+        if (searches.length === undefined) {
+			setPage(1);
+        }
+        else{
+            const page = searches.find(item => item.key === "keyword");
+            if(page) {
+                setPage(Number(page.value));
+            }
+        }
+    }, []);
+//2. 검색 : 처음은 첫번째 페이지에 고정
+    useEffect(()=> {
+
+        if (keyword === "" ) {
             alert('검색어를 입력해주세요');
             history.push('/search/topic');
             return;
-        } else{
-            try {
-                const responce = await API.Search.fetchArticles(keyword,page,cnt);
-                setTopics(responce.items);
-            } catch(e) {
-                console.log(e);
-            }
         }
-    }
 
-    useEffect(() => {
-        if(searches.length<1){
-            setPage(1);
-        }
-        else {
-            const __page = searches.find(item => item.key === "page");
-            if(__page) {
-                setPage(Number(__page.value));
-                console.log(page);
-            }
-        }
-        Fn();
-    }, []);
+    },[]);
 
-    useEffect(()=> {
-        Fn();
-        setPage(1);
 
-    },[page]);
-
+// 3. 페이지 번호가 바뀔때마다 실행
         useEffect(()=> {
             Fn();
 
         },[page]);
-   /* const Search = {
-        search: () => {
-            if ( keyword === "" ) {
-                alert("검색어를 입력해주세요");
-                return;
-            }
-            else {
-                fn();
-            }
-        }
-    }
-*/
+
     return(
         <>
         <div className = "search-container">
@@ -106,7 +89,7 @@ const SearchView = () => {
                         onChange={(e) => setKeyword(e.target.value)}/> {
                             bool ? 
                         (<button className = "search-button" onClick={()=> {Fn(); setBool(false); }}><FcSearch className="search-but-img"/></button>) : 
-                        (<button className = "search-button" onClick={()=> {setKeyword(""); setBool(true); }}><ImCancelCircle className="search-but-img"/></button>)
+                        (<button className = "search-button" onClick={(e)=> {setKeyword(""); setBool(true); setTopics([]); }}><ImCancelCircle className="search-but-img"/></button>)
                         }
                         </div>
                 <div className = "__search-navbar_wrap">
